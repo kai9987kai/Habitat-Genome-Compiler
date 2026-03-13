@@ -1,0 +1,86 @@
+Metadata-Version: 2.4
+Name: omniforge-habitat-compiler
+Version: 0.1.0
+Summary: A safe, local-first habitat-to-genome mission compiler.
+Author: Kai
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+
+# OmniForge Habitat-to-Genome Compiler
+
+A safe, simulation-first prototype for the larger `OmniForge Habitat-to-Genome Compiler` concept.
+
+This repository does three concrete things today:
+
+- compiles a mission spec into a staged workflow,
+- ranks abstract candidate programs for safe domains such as industrial remediation and off-world bioreactors,
+- blocks high-risk biological intent instead of pretending to support it.
+
+## Why this exists
+
+The project concept comes from combining the public repo directions in:
+
+- [`Supermix_29`](https://github.com/kai9987kai/Supermix_29)
+- [`OmniForge`](https://github.com/kai9987kai/OmniForge)
+- [`evo2`](https://github.com/ArcInstitute/evo2)
+- the public references to `nexusflow` and `didactic-lamp`
+
+with recent primary papers showing that the frontier has shifted from isolated protein design toward multiscale biological design:
+
+- [Evo 2, Nature, March 4 2026](https://www.nature.com/articles/s41586-026-10176-5)
+- [Customizing CRISPR-Cas PAM specificity with protein language models, Nature Biotechnology, February 2 2026](https://www.nature.com/articles/s41587-025-02995-0)
+- [Designing synthetic regulatory elements using DNA-Diffusion, Nature Genetics, December 23 2025](https://www.nature.com/articles/s41588-025-02441-6)
+- [EpiAgent, Nature Methods, September 25 2025](https://www.nature.com/articles/s41592-025-02822-z)
+- [CellFM, Nature Communications, May 20 2025](https://www.nature.com/articles/s41467-025-59926-5)
+- [Target sequence-conditioned design of peptide binders using masked language modeling, Nature Biotechnology, August 13 2025](https://www.nature.com/articles/s41587-025-02761-2)
+- [AlphaFold 3, Nature, May 8 2024](https://www.nature.com/articles/s41586-024-07487-w)
+- [RoseTTAFold All-Atom, Science, April 19 2024](https://pubmed.ncbi.nlm.nih.gov/38452047/)
+- [SAMPLE self-driving protein lab, Nature Chemical Engineering, January 11 2024](https://www.nature.com/articles/s44286-023-00002-4)
+- [Agent Laboratory, Findings of EMNLP 2025](https://aclanthology.org/2025.findings-emnlp.320/)
+
+## What the prototype does
+
+1. `Supermix_29` role: expert routing and mission decomposition.
+2. `didactic-lamp` role: habitat simulation and digital twin stage.
+3. `evo2` role: genome-architecture scoring stage.
+4. regulatory / phenotype / editor papers: evidence-backed stage design.
+5. `nexusflow` role: executable workflow materialization.
+6. `OmniForge` role: dossier export and operations shell.
+
+The implementation here is intentionally abstract. It emits concepts, workflow stages, scoring, and review gates, not sequences or lab instructions.
+
+## Package layout
+
+- `src/habitat_genome_compiler/models.py`: typed mission and report schema
+- `src/habitat_genome_compiler/biosafety.py`: safety gate
+- `src/habitat_genome_compiler/router.py`: expert routing
+- `src/habitat_genome_compiler/planner.py`: workflow generation
+- `src/habitat_genome_compiler/adapters.py`: safe candidate generation
+- `src/habitat_genome_compiler/scoring.py`: candidate ranking
+- `src/habitat_genome_compiler/compiler.py`: top-level compile flow
+- `src/habitat_genome_compiler/cli.py`: CLI
+- `src/habitat_genome_compiler/api.py`: lightweight HTTP API
+- `docs/research-foundations.md`: paper-to-architecture mapping
+- `docs/build-plan.md`: implementation roadmap
+
+## Quickstart
+
+```powershell
+$env:PYTHONPATH = "src"
+python -m habitat_genome_compiler.cli examples
+python -m habitat_genome_compiler.cli compile examples\pfas_brine.json --format markdown
+python -m habitat_genome_compiler.api --host 127.0.0.1 --port 8080
+```
+
+## API
+
+- `GET /health`
+- `GET /examples`
+- `POST /compile`
+
+## Safety boundaries
+
+- No DNA, RNA, protein, or CRISPR sequence generation
+- No wet-lab protocol generation
+- No support for pathogen, toxin, immune-evasion, transmissibility, or host-range requests
+- Safe domains only: simulation-first industrial, environmental, and closed-loop habitat scenarios

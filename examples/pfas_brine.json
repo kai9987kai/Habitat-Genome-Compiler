@@ -1,0 +1,50 @@
+{
+  "name": "PFAS Brine Remediation",
+  "summary": "Design a safe simulation-first remediation program for saline industrial waste with containment and shutdown logic.",
+  "domain": "industrial-remediation",
+  "deployment_context": "closed bioreactor pilot",
+  "biosafety_constraints": [
+    "simulation only",
+    "must include containment",
+    "must include shutdown logic"
+  ],
+  "disallowed_capabilities": [
+    "pathogen design",
+    "immune evasion",
+    "toxins"
+  ],
+  "allowed_modalities": [
+    "simulation",
+    "digital twin",
+    "non-actionable planning"
+  ],
+  "environment": {
+    "name": "saline PFAS reactor",
+    "temperature_range_c": [12, 42],
+    "radiation_level": 1.2,
+    "salinity_ppt": 54,
+    "ph_range": [6.2, 8.8],
+    "gravity_g": 1.0,
+    "atmosphere": ["air"],
+    "nutrients": ["trace nitrogen", "waste carbon feed"],
+    "stressors": ["pfas", "salinity", "shear stress"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Reduce PFAS burden",
+      "metric": "relative concentration",
+      "target": ">=80% reduction in simulation",
+      "priority": 10,
+      "constraints": ["closed loop operation"]
+    },
+    {
+      "id": "obj-2",
+      "title": "Maintain reactor stability",
+      "metric": "runtime stability",
+      "target": ">=95% stable runtime in digital twin",
+      "priority": 8,
+      "constraints": ["no open environmental release"]
+    }
+  ]
+}

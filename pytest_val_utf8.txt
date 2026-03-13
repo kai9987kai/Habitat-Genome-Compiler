@@ -1,0 +1,19 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.12, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\kai99\Desktop\pr1
+configfile: pyproject.toml
+plugins: anyio-4.12.1
+collected 60 items
+
+tests\test_adapters.py .........                                         [ 15%]
+tests\test_biosafety.py .........                                        [ 30%]
+tests\test_compiler.py ........                                          [ 43%]
+tests\test_metabolism.py .....                                           [ 51%]
+tests\test_planner.py ........                                           [ 65%]
+tests\test_robustness.py ......                                          [ 75%]
+tests\test_scoring.py .......                                            [ 86%]
+tests\test_sequence_gen.py ...                                           [ 91%]
+tests\test_simulation.py ..                                              [ 95%]
+tests\test_sustainability.py ...                                         [100%]
+
+============================= 60 passed in 1.29s ==============================

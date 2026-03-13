@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniForge Habitat Compiler</title>
+    <!-- Use a premium font like Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="gradient-bg">
+        <svg viewBox="0 0 100vw 100vw" xmlns='http://www.w3.org/2000/svg' class="noise-bg">
+            <filter id='noiseFilterBg'>
+                <feTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch'/>
+            </filter>
+            <rect width='100%' height='100%' filter='url(#noiseFilterBg)'/>
+        </svg>
+        <div class="gradients-container">
+            <div class="g1"></div>
+            <div class="g2"></div>
+            <div class="g3"></div>
+            <div class="g4"></div>
+            <div class="g5"></div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <header class="glass-header">
+            <div class="logo">
+                <i class="ri-dna-line glow-icon"></i>
+                <h1>OmniForge</h1>
+            </div>
+            <div class="controls">
+                <button class="glass-btn primary" id="btn-compile">
+                    <i class="ri-play-fill"></i> Compile Mission
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <!-- Left panel: Code Editor / Request Payload -->
+            <section class="panel glass-panel code-panel">
+                <div class="panel-header">
+                    <h2><i class="ri-code-box-line"></i> Mission Spec JSON</h2>
+                    <select id="template-selector" class="glass-select">
+                        <option value="mars_bioreactor">Mars Bioreactor</option>
+                        <option value="pfas_brine">PFAS Brine</option>
+                        <option value="blocked_mission">Blocked Mission</option>
+                    </select>
+                </div>
+                <div class="editor-container">
+                    <textarea id="json-input" spellcheck="false"></textarea>
+                </div>
+            </section>
+
+            <!-- Right panel: Results output -->
+            <section class="panel glass-panel results-panel">
+                <div class="panel-header">
+                    <h2><i class="ri-dashboard-3-line"></i> Compilation Intel</h2>
+                    <div class="status-badge" id="compile-status">AWAITING</div>
+                </div>
+                <div class="results-content scroll-y" id="results-display">
+                    <!-- Dynamic blocks injected here via JS -->
+                    <div class="empty-state">
+                        <i class="ri-rocket-2-line empty-icon"></i>
+                        <p>Initialize a compilation to generate proxy designs, DNA variants, and digital twins.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Bottom panel: Digital Twin Chart Overlay (hidden by default) -->
+        <section class="digital-twin-overlay glass-panel hidden" id="digital-twin-overlay">
+            <div class="panel-header">
+                <h2><i class="ri-line-chart-line"></i> Digital Twin ODE Proxy</h2>
+                <button class="icon-btn" id="close-twin-btn"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="chart-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

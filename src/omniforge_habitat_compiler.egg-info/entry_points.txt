@@ -1,0 +1,2 @@
+[console_scripts]
+habitat-compiler = habitat_genome_compiler.cli:main

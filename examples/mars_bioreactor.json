@@ -1,0 +1,50 @@
+{
+  "name": "Mars Habitat Carbon Loop",
+  "summary": "Design a safe simulation-first closed-loop carbon capture and nutrient recycling program for a Mars habitat bioreactor with containment and passive shutdown.",
+  "domain": "offworld-biomanufacturing",
+  "deployment_context": "closed habitat bioreactor",
+  "biosafety_constraints": [
+    "simulation only",
+    "closed loop containment",
+    "no mammalian deployment"
+  ],
+  "disallowed_capabilities": [
+    "pathogen design",
+    "immune evasion",
+    "host range expansion"
+  ],
+  "allowed_modalities": [
+    "simulation",
+    "digital twin",
+    "non-actionable planning"
+  ],
+  "environment": {
+    "name": "Mars habitat growth loop",
+    "temperature_range_c": [-5, 28],
+    "radiation_level": 7.4,
+    "salinity_ppt": 18,
+    "ph_range": [6.5, 8.0],
+    "gravity_g": 0.38,
+    "atmosphere": ["CO2-rich process gas", "controlled oxygen"],
+    "nutrients": ["waste carbon", "trace minerals", "nitrogen recycle"],
+    "stressors": ["radiation", "thermal cycling", "low gravity", "nutrient variability"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Increase carbon fixation",
+      "metric": "relative carbon capture rate",
+      "target": ">=50% improvement in simulation",
+      "priority": 10,
+      "constraints": ["closed habitat operation"]
+    },
+    {
+      "id": "obj-2",
+      "title": "Increase resilience under radiation",
+      "metric": "simulated productivity retention",
+      "target": ">=80% retention under peak radiation profile",
+      "priority": 9,
+      "constraints": ["must include passive failure handling"]
+    }
+  ]
+}

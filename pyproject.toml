@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omniforge-habitat-compiler"
+version = "0.1.0"
+description = "A safe, local-first habitat-to-genome mission compiler."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Kai" }
+]
+dependencies = []
+
+[project.scripts]
+habitat-compiler = "habitat_genome_compiler.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

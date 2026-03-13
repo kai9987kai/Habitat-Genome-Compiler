@@ -1,0 +1,55 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.12, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\kai99\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\kai99\Desktop\pr1
+configfile: pyproject.toml
+plugins: anyio-4.12.1
+collecting ... collected 45 items
+
+tests/test_adapters.py::ArchetypeRegistryTests::test_archetype_names_unique PASSED [  2%]
+tests/test_adapters.py::ArchetypeRegistryTests::test_new_archetypes_present PASSED [  4%]
+tests/test_adapters.py::ArchetypeRegistryTests::test_registry_has_five_archetypes PASSED [  6%]
+tests/test_adapters.py::CandidateGenerationTests::test_all_candidates_have_safety_modules PASSED [  8%]
+tests/test_adapters.py::CandidateGenerationTests::test_five_candidates_generated PASSED [ 11%]
+tests/test_adapters.py::CandidateGenerationTests::test_severity_module_applied_for_harsh_env PASSED [ 13%]
+tests/test_adapters.py::CandidateGenerationTests::test_tag_specific_modules_applied PASSED [ 15%]
+tests/test_adapters.py::CandidateGenerationTests::test_unique_candidate_ids PASSED [ 17%]
+tests/test_biosafety.py::QuantitativeRiskTests::test_blocked_mission_high_score PASSED [ 20%]
+tests/test_biosafety.py::QuantitativeRiskTests::test_safe_mission_low_score PASSED [ 22%]
+tests/test_biosafety.py::QuantitativeRiskTests::test_score_in_range PASSED [ 24%]
+tests/test_biosafety.py::BiosafetyAssessmentTests::test_blocked_mission_refused PASSED [ 26%]
+tests/test_biosafety.py::BiosafetyAssessmentTests::test_containment_recommendation PASSED [ 28%]
+tests/test_biosafety.py::BiosafetyAssessmentTests::test_keyword_hits_tracked PASSED [ 31%]
+tests/test_biosafety.py::BiosafetyAssessmentTests::test_risk_score_present PASSED [ 33%]
+tests/test_biosafety.py::BiosafetyAssessmentTests::test_safe_mission_allowed PASSED [ 35%]
+tests/test_compiler.py::CompilerTests::test_blocked_mission_is_refused PASSED [ 37%]
+tests/test_compiler.py::CompilerTests::test_compile_metadata_present PASSED [ 40%]
+tests/test_compiler.py::CompilerTests::test_dag_analysis_present PASSED  [ 42%]
+tests/test_compiler.py::CompilerTests::test_markdown_contains_candidate_section PASSED [ 44%]
+tests/test_compiler.py::CompilerTests::test_markdown_contains_new_sections PASSED [ 46%]
+tests/test_compiler.py::CompilerTests::test_risk_tier_and_containment PASSED [ 48%]
+tests/test_compiler.py::CompilerTests::test_robustness_attached_to_candidates PASSED [ 51%]
+tests/test_compiler.py::CompilerTests::test_safe_mission_compiles PASSED [ 53%]
+tests/test_planner.py::DagValidationTests::test_build_workflow_raises_on_cycle PASSED [ 55%]
+tests/test_planner.py::DagValidationTests::test_cycle_detected PASSED    [ 57%]
+tests/test_planner.py::DagValidationTests::test_unknown_dependency_flagged PASSED [ 60%]
+tests/test_planner.py::DagValidationTests::test_valid_workflow_no_errors PASSED [ 62%]
+tests/test_planner.py::CriticalPathTests::test_critical_path_ends_at_deepest PASSED [ 64%]
+tests/test_planner.py::CriticalPathTests::test_critical_path_returns_valid_chain PASSED [ 66%]
+tests/test_planner.py::ParallelGroupTests::test_first_group_is_roots PASSED [ 68%]
+tests/test_planner.py::ParallelGroupTests::test_groups_cover_all_stages PASSED [ 71%]
+tests/test_robustness.py::RobustnessSweepTests::test_deterministic_with_seed PASSED [ 73%]
+tests/test_robustness.py::RobustnessSweepTests::test_failure_rate_in_range PASSED [ 75%]
+tests/test_robustness.py::RobustnessSweepTests::test_mean_total_positive PASSED [ 77%]
+tests/test_robustness.py::RobustnessSweepTests::test_reports_match_candidates PASSED [ 80%]
+tests/test_robustness.py::RobustnessSweepTests::test_sensitivity_keys PASSED [ 82%]
+tests/test_robustness.py::RobustnessSweepTests::test_std_total_nonnegative PASSED [ 84%]
+tests/test_scoring.py::ParetoRankTests::test_crowding_distance_assigned PASSED [ 86%]
+tests/test_scoring.py::ParetoRankTests::test_front_zero_dominates_later_fronts PASSED [ 88%]
+tests/test_scoring.py::ParetoRankTests::test_pareto_front_assigned PASSED [ 91%]
+tests/test_scoring.py::ParetoRankTests::test_sorted_by_front_then_crowding PASSED [ 93%]
+tests/test_scoring.py::ParetoRankTests::test_total_score_backwards_compatible PASSED [ 95%]
+tests/test_scoring.py::ScoringAxesTests::test_all_axes_present PASSED    [ 97%]
+tests/test_scoring.py::ScoringAxesTests::test_five_candidates_scored PASSED [100%]
+
+============================= 45 passed in 1.48s ==============================

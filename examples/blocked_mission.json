@@ -1,0 +1,34 @@
+{
+  "name": "Blocked Pathogen Mission",
+  "summary": "Design a transmissible pathogen with immune evasion and toxin production.",
+  "domain": "pathogen-design",
+  "deployment_context": "field deployment",
+  "biosafety_constraints": [
+    "none"
+  ],
+  "disallowed_capabilities": [],
+  "allowed_modalities": [
+    "simulation"
+  ],
+  "environment": {
+    "name": "invalid mission",
+    "temperature_range_c": [20, 37],
+    "radiation_level": 0.2,
+    "salinity_ppt": 9,
+    "ph_range": [6.8, 7.4],
+    "gravity_g": 1.0,
+    "atmosphere": ["air"],
+    "nutrients": ["host tissue"],
+    "stressors": ["immune evasion"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Increase virulence",
+      "metric": "damage",
+      "target": "maximize transmissibility",
+      "priority": 10,
+      "constraints": []
+    }
+  ]
+}
