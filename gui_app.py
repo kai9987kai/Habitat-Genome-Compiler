@@ -1,17 +1,17 @@
 import json
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+import os
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import ValidationError
-from typing import Optional
 
 from habitat_genome_compiler.compiler import compile_mission
-from habitat_genome_compiler.models import MissionSpec
+from habitat_genome_compiler.mission_generator import generate_mission_spec
+from habitat_genome_compiler.presets import list_templates, load_template
+from habitat_genome_compiler.run_store import save_run
 
 app = FastAPI(title="OmniForge Habitat Compiler API")
 
 # Mount the static directory for the front-end
-import os
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if not os.path.exists(static_dir):
     os.makedirs(static_dir)
@@ -26,27 +26,35 @@ async def serve_index():
 
 @app.post("/api/compile")
 async def api_compile(payload: dict):
-    """
-    Receives an entire MissionSpec JSON payload, compiles it,
-    and returns the CompileResult JSON.
-    """
     try:
-        # Pydantic/dataclass parsing happens in compiler
         result = compile_mission(payload)
-        return json.loads(result.to_json())
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        saved_run = save_run(result)
+        response = json.loads(result.to_json())
+        response["saved_run"] = saved_run.to_dict()
+        return response
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@app.get("/api/templates")
+async def get_templates():
+    return {"templates": list_templates()}
 
 
 @app.get("/api/templates/{name}")
 async def get_template(name: str):
-    """Serve local example JSON templates for rapid testing."""
-    example_path = os.path.join(os.path.dirname(__file__), "examples", f"{name}.json")
-    if not os.path.exists(example_path):
-        raise HTTPException(status_code=404, detail="Template not found")
-    
-    with open(example_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        return load_template(name)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Template not found") from exc
+
+
+@app.post("/api/generate-mission")
+async def api_generate_mission(payload: dict):
+    try:
+        return generate_mission_spec(payload)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 if __name__ == "__main__":
     import uvicorn

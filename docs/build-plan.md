@@ -13,6 +13,7 @@ Implemented in this repo:
 - deterministic candidate generation
 - candidate scoring
 - CLI and HTTP API
+- versioned local run archive with manifest, JSON result, and Markdown dossier exports
 - cited research notes
 
 ## Phase 1: adapter interfaces
@@ -85,7 +86,7 @@ Research basis:
 Work:
 
 - add configuration files and environment-variable support
-- add typed persistence and migration strategy
+- extend the local run archive into typed persistence and migration strategy
 - add integration tests with stubbed adapters
 - add benchmark missions and regression scoring
 - define refusal policy tests for high-risk biology requests

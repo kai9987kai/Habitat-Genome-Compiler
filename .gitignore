@@ -1,0 +1,6 @@
+.playwright-cli/
+.pytest_cache/
+output/
+runs/
+__pycache__/
+*.py[cod]

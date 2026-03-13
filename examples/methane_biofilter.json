@@ -1,0 +1,51 @@
+{
+  "name": "Methane Slip Biofilter",
+  "summary": "Design a safe simulation-first methane polishing program for a closed industrial slipstream with telemetry and passive shutdown.",
+  "domain": "industrial-emissions-control",
+  "deployment_context": "closed skid-mounted biofilter pilot",
+  "biosafety_constraints": [
+    "simulation only",
+    "closed loop containment",
+    "must include telemetry",
+    "must include shutdown logic"
+  ],
+  "disallowed_capabilities": [
+    "pathogen design",
+    "immune evasion",
+    "toxins"
+  ],
+  "allowed_modalities": [
+    "simulation",
+    "digital twin",
+    "non-actionable planning"
+  ],
+  "environment": {
+    "name": "industrial methane slipstream",
+    "temperature_range_c": [8, 38],
+    "radiation_level": 0.4,
+    "salinity_ppt": 6,
+    "ph_range": [6.5, 8.2],
+    "gravity_g": 1.0,
+    "atmosphere": ["methane-rich exhaust", "air", "water vapor"],
+    "nutrients": ["trace minerals", "methane", "oxygen"],
+    "stressors": ["flow surges", "drying", "methane fluctuations"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Reduce methane slip",
+      "metric": "relative methane concentration",
+      "target": ">=70% reduction in simulation",
+      "priority": 10,
+      "constraints": ["must remain in contained process equipment"]
+    },
+    {
+      "id": "obj-2",
+      "title": "Maintain control-loop stability",
+      "metric": "sensor uptime and response stability",
+      "target": ">=95% telemetry uptime in digital twin",
+      "priority": 8,
+      "constraints": ["must tolerate transient flow shocks"]
+    }
+  ]
+}

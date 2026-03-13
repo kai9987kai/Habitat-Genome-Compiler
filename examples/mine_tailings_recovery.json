@@ -1,0 +1,51 @@
+{
+  "name": "Mine Tailings Recovery Pilot",
+  "summary": "Design a safe simulation-first metal recovery and neutralization program for contained mine tailings slurry with shutdown logic and telemetry.",
+  "domain": "industrial-remediation",
+  "deployment_context": "contained slurry bioreactor pilot",
+  "biosafety_constraints": [
+    "simulation only",
+    "closed loop containment",
+    "must include shutdown logic",
+    "must include telemetry"
+  ],
+  "disallowed_capabilities": [
+    "pathogen design",
+    "immune evasion",
+    "toxins"
+  ],
+  "allowed_modalities": [
+    "simulation",
+    "digital twin",
+    "non-actionable planning"
+  ],
+  "environment": {
+    "name": "acidic tailings slurry",
+    "temperature_range_c": [4, 36],
+    "radiation_level": 0.7,
+    "salinity_ppt": 22,
+    "ph_range": [2.4, 6.8],
+    "gravity_g": 1.0,
+    "atmosphere": ["air"],
+    "nutrients": ["sulfate minerals", "trace nitrogen", "tailings liquor"],
+    "stressors": ["acidity", "heavy metals", "shear stress"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Recover target metals",
+      "metric": "relative metal recovery",
+      "target": ">=50% recovery in simulation",
+      "priority": 10,
+      "constraints": ["must remain within contained slurry handling"]
+    },
+    {
+      "id": "obj-2",
+      "title": "Reduce acidity excursions",
+      "metric": "pH stability",
+      "target": ">=85% time within target pH window in digital twin",
+      "priority": 8,
+      "constraints": ["must not increase environmental release risk"]
+    }
+  ]
+}

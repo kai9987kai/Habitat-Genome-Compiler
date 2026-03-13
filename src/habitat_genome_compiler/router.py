@@ -31,11 +31,17 @@ def select_experts(mission: MissionSpec) -> list[str]:
     if any(token in summary for token in ("pfas", "waste", "remediation", "degradation")):
         experts.append("industrial-remediation-specialist")
 
-    if any(token in summary for token in ("mars", "lunar", "space", "radiation", "low gravity")):
+    if any(token in summary for token in ("mars", "lunar", "space", "radiation", "low gravity", "regolith")):
         experts.append("habitat-systems-specialist")
 
     if any(token in summary for token in ("biofilm", "material", "coating", "infrastructure")):
         experts.append("living-materials-designer")
+
+    if any(token in summary for token in ("telemetry", "digital twin", "control-loop", "observability", "sensor")):
+        experts.append("digital-twin-controls-specialist")
+
+    if any(token in summary for token in ("recycle", "regolith", "waste carbon", "resource loop")):
+        experts.append("resource-loop-specialist")
 
     experts.append("workflow-compiler")
 

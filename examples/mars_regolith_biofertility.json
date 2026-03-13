@@ -1,0 +1,51 @@
+{
+  "name": "Mars Regolith Biofertility Loop",
+  "summary": "Design a safe simulation-first regolith conditioning and nutrient recycle program for a Mars habitat greenhouse with containment and telemetry.",
+  "domain": "offworld-biomanufacturing",
+  "deployment_context": "closed habitat greenhouse pilot",
+  "biosafety_constraints": [
+    "simulation only",
+    "closed loop containment",
+    "must include telemetry",
+    "must quantify nutrient recycle efficiency"
+  ],
+  "disallowed_capabilities": [
+    "pathogen design",
+    "immune evasion",
+    "host range expansion"
+  ],
+  "allowed_modalities": [
+    "simulation",
+    "digital twin",
+    "non-actionable planning"
+  ],
+  "environment": {
+    "name": "Mars regolith greenhouse loop",
+    "temperature_range_c": [-12, 24],
+    "radiation_level": 6.8,
+    "salinity_ppt": 14,
+    "ph_range": [6.3, 8.5],
+    "gravity_g": 0.38,
+    "atmosphere": ["CO2-rich habitat gas", "controlled oxygen"],
+    "nutrients": ["regolith extract", "waste carbon", "recycled water"],
+    "stressors": ["radiation", "dust", "thermal cycling", "nutrient scarcity"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Improve regolith biofertility",
+      "metric": "relative nutrient release",
+      "target": ">=40% increase in plant-available nutrients in simulation",
+      "priority": 10,
+      "constraints": ["must remain within closed habitat operations"]
+    },
+    {
+      "id": "obj-2",
+      "title": "Close the nutrient recycle loop",
+      "metric": "recycled nutrient substitution",
+      "target": ">=60% nutrient replacement in digital twin",
+      "priority": 9,
+      "constraints": ["must model water and mineral reuse"]
+    }
+  ]
+}

@@ -1,76 +1,111 @@
-# 🧬 Habitat-Genome Compiler (v0.6.0)
+# Habitat-Genome Compiler
 
-> **Architecting the Future of Synthetic Ecology for Extreme Frontiers.**
+Habitat-Genome Compiler is a safe, local-first mission compiler for speculative habitat and environmental bio-design programs. It turns a mission JSON spec into a ranked candidate set, a markdown dossier, and an auditable local run archive. The project now also includes a browser-based mission studio that can generate valid mission specs through a guided builder instead of requiring hand-authored JSON.
 
-The Habitat-Genome Compiler is a state-of-the-art **Bio-CAD** (Computer-Aided Design) platform for synthetic biology. It specializes in the "Design" and "Learn" phases of the DBTL cycle, enabling engineers to architect microbial solutions for environments ranging from the deep ocean to the lunar surface.
+## What is included
 
----
+- A mission JSON compiler with biosafety-aware validation and refusal handling.
+- A GUI mission builder that generates safe mission specs and keeps the JSON view in sync.
+- A preset library for industrial, water, climate, and offworld mission scenarios.
+- Local run persistence with `manifest.json`, `mission.json`, `result.json`, and `report.md` for every saved compile.
+- A lightweight HTTP API plus CLI commands for compile, serve, list runs, and inspect archived artifacts.
 
-## 🎨 Premium Features
+## Quick start
 
-### 🏢 Digital Twin ODE Simulation
-Our **Predictive Growth Engine** uses a system of Ordinary Differential Equations (ODEs) to model the metabolic transition from biomass accumulation to secondary metabolite production. 
-- **Time-Series Analysis**: 72-hour projections of OD600 and Titer.
-- **Dynamic Charting**: Real-time rendering via high-performance WebGL/Canvas.
+Clone the repository, then install the package in editable mode:
 
-### 🛡️ Environmental Proteostasis (Phase 4)
-We model structural biology signatures to predict enzymatic stability under non-standard thermodynamics.
-- **Thermal Neutrality**: Compositional analysis of charged vs. hydrophobic residues.
-- **Osmotic Resilience**: Prediction of hydration shells in hypersaline contexts.
+```bash
+pip install -e .
+```
 
-### 🔄 Symbiosis & Evolutionary Risk (Phase 5)
-Leveraging 2025-era research, we model long-term stability in the "wild".
-- **SynCom Dynamics**: Multi-organism metabolic cross-feeding stability.
-- **Genetic Lock-in**: Hard-coding trait persistence via overlapping ORFs and essentiality coupling.
+For the GUI builder, make sure `fastapi` and `uvicorn` are available in your environment, then start the app:
 
-### 🧬 PLM Fitness Landscape (Phase 7)
-Zero-shot protein fitness prediction inspired by MULTI-evolve and AlphaProteo.
-- **Sequence Likelihood**: Pseudo-PLM log-likelihood proxy for rapid fitness estimation.
-- **Epistatic Penalty**: Detects negative interactions across engineered module boundaries.
+```bash
+python gui_app.py
+```
 
-### ⚡ Genetic Circuit Compiler (Phase 7)
-Cello-style automated logic gate inference from mission objectives.
-- **Gate Library**: Environmental Sensors, AND/OR/NOT gates, Actuators.
-- **Reliability Score**: Product-of-gates reliability metric for autonomous deployment readiness.
+Open `http://127.0.0.1:8000` to use the mission studio.
 
-### 🔬 Codon Optimization (Phase 8)
-LLM-guided codon adaptation inspired by MIT's 2026 codon optimizer.
-- **CAI Scoring**: Host-specific Codon Adaptation Index estimation.
-- **Rare Codon Detection**: Flags triplets likely to stall translation.
+## CLI usage
 
-### 🧪 CRISPR Diagnostics Designer (Phase 8)
-SHERLOCK/DETECTR field monitoring assay recommendation engine.
-- **Assay Library**: Cas12a-DETECTR, Cas13a-SHERLOCK, lateral-flow readouts.
-- **Escape Detection**: Automatic monitoring probe design for open deployments.
+Compile a bundled example and save the full run archive:
 
-### 📋 Regulatory Compliance (Phase 8)
-Automated GLP documentation and jurisdiction-aware readiness scoring.
-- **Frameworks**: FDA 21 CFR Part 58, EU 2001/18/EC, Korea Synthetic Biology Act (April 2026).
-- **Checklist Generator**: Pre-study plan, SOPs, containment verification, risk tier escalation.
+```bash
+habitat-compiler compile examples/pfas_brine.json --save-run
+```
 
----
+List recent saved runs:
 
-## 🏗️ Architecture
+```bash
+habitat-compiler runs
+```
 
-The system is built as a **Modular Compiler Pipeline**:
+Inspect a saved markdown dossier:
 
-1.  **Ingestion**: Mission specifications are validated against a strict biosafety ontology.
-2.  **Adaptation**: Habitat profiles are generated using deterministic severe-climate heuristics.
-3.  **Exploration**: A **Reinforcement Learning (RL) Proxy** explores a combinatorial design space of over 10^6 module combinations.
-4.  **Simulation**: Candidates are processed through FBA, ODE, and GenAI DNA assembly proxies.
-5.  **Dossier Generation**: A comprehensive technical report is emitted in JSON/Markdown format.
+```bash
+habitat-compiler show-run <run_id> --artifact report
+```
 
----
+Run the lightweight API server:
 
-## 🚀 Experience the Innovation
-- **GUI Dashboard**: `python gui_app.py` → `localhost:8000` (Glassmorphism UI).
-- **Core Verification**: `pytest tests/` (60/60 industry-standard tests).
+```bash
+habitat-compiler serve --host 127.0.0.1 --port 8080
+```
 
----
+## Mission studio
 
-## 🔬 Safety & Ethics
-- **Tier 4 Verification**: Automated blocking of pathogen/toxin sequences.
-- **Active Biocontainment**: Mandatory generation of kill-switches and auxotrophy plans for all verified missions.
+The browser UI now includes:
 
----
-*Created for OmniForge by Advanced Agentic Coding.*
+- Preset cards with safe-first ordering and blocked-demo missions pushed to the end.
+- A guided builder for name, domain, environment, stressors, objectives, and safety profile.
+- Research-note cards that explain why extra control, containment, consortium, or offworld objectives were added.
+- A live JSON panel so generated missions can still be reviewed and edited directly.
+- Compile results that surface verdicts and the saved run ID for traceability.
+
+## Bundled presets
+
+Current example missions include:
+
+- `examples/pfas_brine.json`
+- `examples/desalination_brine_polishing.json`
+- `examples/methane_biofilter.json`
+- `examples/mine_tailings_recovery.json`
+- `examples/mars_bioreactor.json`
+- `examples/mars_regolith_biofertility.json`
+- `examples/blocked_mission.json`
+
+## Research-backed generator
+
+The mission builder adds extra objectives and constraints using rules derived from published work on:
+
+- Digital twins for bioprocess control
+- Long-term microbial consortium homeostasis
+- Layered biological containment
+- Offworld resource loops and regolith-linked nutrient recycling
+
+The applied source mapping is documented in `docs/research-upgrades.md`.
+
+## Saved runs
+
+When a compile is saved, the run archive stores:
+
+- `manifest.json` with metadata, timestamps, compiler version, and artifact references
+- `mission.json` with the validated mission input
+- `result.json` with the compiler output
+- `report.md` with the rendered dossier
+
+Runs are stored in `./runs` by default, or in the directory pointed to by `HABITAT_COMPILER_RUNS_DIR`.
+
+## Safety model
+
+This project is intentionally simulation-first. Unsafe mission requests are blocked, and the builder refuses pathogen, toxin, immune-evasion, transmissibility, and similar harmful capability framing. Generated missions bias toward containment, telemetry, shutdown logic, and review gates instead of actionable wet-lab instructions.
+
+## Verification
+
+The current automated test suite passes with:
+
+```bash
+python -m pytest -q
+```
+
+Latest verified result: `75 passed`.

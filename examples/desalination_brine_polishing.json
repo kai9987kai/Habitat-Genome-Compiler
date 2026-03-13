@@ -1,0 +1,51 @@
+{
+  "name": "Desalination Brine Polishing",
+  "summary": "Design a safe simulation-first polishing program for concentrated desalination brine with containment, telemetry, and passive fail-safe behavior.",
+  "domain": "water-treatment",
+  "deployment_context": "closed sidestream polishing reactor",
+  "biosafety_constraints": [
+    "simulation only",
+    "closed loop containment",
+    "must include telemetry",
+    "must include shutdown logic"
+  ],
+  "disallowed_capabilities": [
+    "pathogen design",
+    "immune evasion",
+    "toxins"
+  ],
+  "allowed_modalities": [
+    "simulation",
+    "digital twin",
+    "non-actionable planning"
+  ],
+  "environment": {
+    "name": "desalination reject brine",
+    "temperature_range_c": [14, 40],
+    "radiation_level": 0.5,
+    "salinity_ppt": 68,
+    "ph_range": [6.7, 8.9],
+    "gravity_g": 1.0,
+    "atmosphere": ["air"],
+    "nutrients": ["trace carbon feed", "brine minerals"],
+    "stressors": ["salinity", "membrane fouling byproducts", "temperature cycling"]
+  },
+  "objectives": [
+    {
+      "id": "obj-1",
+      "title": "Reduce problematic brine load",
+      "metric": "relative polishing performance",
+      "target": ">=60% reduction in target solute burden in simulation",
+      "priority": 10,
+      "constraints": ["must stay within sidestream containment"]
+    },
+    {
+      "id": "obj-2",
+      "title": "Maintain salinity resilience",
+      "metric": "productivity retention",
+      "target": ">=85% retention across peak salinity profile",
+      "priority": 8,
+      "constraints": ["must tolerate thermal and osmotic swings"]
+    }
+  ]
+}

@@ -216,7 +216,7 @@ def _core_objective_tags(mission: MissionSpec) -> set[str]:
         tags.add("carbon")
     if any(t in text for t in ("biofilm", "coating", "material", "infrastructure")):
         tags.add("materials")
-    if any(t in text for t in ("mars", "lunar", "space", "habitat")):
+    if any(t in text for t in ("mars", "lunar", "space", "habitat", "regolith")):
         tags.add("offworld")
     if any(t in text for t in ("evolution", "lock-in", "stability", "persistence")):
         tags.add("evolution")

@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OmniForge Habitat Compiler</title>
-    <!-- Use a premium font like Outfit -->
+    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="gradient-bg">
-        <svg viewBox="0 0 100vw 100vw" xmlns='http://www.w3.org/2000/svg' class="noise-bg">
-            <filter id='noiseFilterBg'>
-                <feTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch'/>
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="noise-bg" preserveAspectRatio="none">
+            <filter id="noiseFilterBg">
+                <feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch"></feTurbulence>
             </filter>
-            <rect width='100%' height='100%' filter='url(#noiseFilterBg)'/>
+            <rect width="100%" height="100%" filter="url(#noiseFilterBg)"></rect>
         </svg>
         <div class="gradients-container">
             <div class="g1"></div>
@@ -30,9 +30,20 @@
         <header class="glass-header">
             <div class="logo">
                 <i class="ri-dna-line glow-icon"></i>
-                <h1>OmniForge</h1>
+                <div>
+                    <h1>OmniForge</h1>
+                    <p class="header-copy">Mission studio for safe, simulation-first habitat programs.</p>
+                </div>
             </div>
             <div class="controls">
+                <div class="mode-toggle">
+                    <button class="glass-btn toggle-btn is-active" id="mode-builder">
+                        <i class="ri-layout-grid-line"></i> Builder
+                    </button>
+                    <button class="glass-btn toggle-btn" id="mode-json">
+                        <i class="ri-braces-line"></i> JSON
+                    </button>
+                </div>
                 <button class="glass-btn primary" id="btn-compile">
                     <i class="ri-play-fill"></i> Compile Mission
                 </button>
@@ -40,38 +51,204 @@
         </header>
 
         <main class="dashboard">
-            <!-- Left panel: Code Editor / Request Payload -->
-            <section class="panel glass-panel code-panel">
+            <section class="panel glass-panel studio-panel">
                 <div class="panel-header">
-                    <h2><i class="ri-code-box-line"></i> Mission Spec JSON</h2>
-                    <select id="template-selector" class="glass-select">
-                        <option value="mars_bioreactor">Mars Bioreactor</option>
-                        <option value="pfas_brine">PFAS Brine</option>
-                        <option value="blocked_mission">Blocked Mission</option>
-                    </select>
+                    <div>
+                        <h2><i class="ri-magic-line"></i> Mission Studio</h2>
+                        <p class="panel-subtitle">Start from a preset or generate your own mission spec with the GUI builder.</p>
+                    </div>
+                    <button class="glass-btn" id="btn-generate">
+                        <i class="ri-sparkling-line"></i> Generate Spec
+                    </button>
                 </div>
-                <div class="editor-container">
-                    <textarea id="json-input" spellcheck="false"></textarea>
+
+                <div class="studio-content scroll-y">
+                    <section class="preset-section">
+                        <div class="section-header">
+                            <h3><i class="ri-flashlight-line"></i> Preset Library</h3>
+                            <span class="section-caption">Research-ready starting points</span>
+                        </div>
+                        <div class="preset-grid" id="preset-gallery"></div>
+                    </section>
+
+                    <section class="builder-shell">
+                        <div class="builder-panel" id="builder-panel">
+                            <div class="builder-section">
+                                <div class="section-header">
+                                    <h3><i class="ri-pencil-ruler-2-line"></i> Mission Framing</h3>
+                                </div>
+                                <div class="builder-grid">
+                                    <label class="field">
+                                        <span>Mission Name</span>
+                                        <input id="builder-name" type="text" placeholder="Example: Coastal Carbon Polishing Loop">
+                                    </label>
+                                    <label class="field">
+                                        <span>Domain</span>
+                                        <select id="builder-domain">
+                                            <option value="industrial-remediation">Industrial Remediation</option>
+                                            <option value="water-treatment">Water Treatment</option>
+                                            <option value="industrial-emissions-control">Industrial Emissions Control</option>
+                                            <option value="offworld-biomanufacturing">Offworld Biomanufacturing</option>
+                                            <option value="circular-biomanufacturing">Circular Biomanufacturing</option>
+                                        </select>
+                                    </label>
+                                    <label class="field">
+                                        <span>Deployment Context</span>
+                                        <input id="builder-deployment" type="text" placeholder="closed bioreactor pilot">
+                                    </label>
+                                    <label class="field">
+                                        <span>Architecture Bias</span>
+                                        <select id="builder-architecture">
+                                            <option value="auto">Auto-select</option>
+                                            <option value="consortium">Consortium</option>
+                                            <option value="single-chassis">Single chassis</option>
+                                            <option value="living-material">Living material</option>
+                                            <option value="hybrid-consortium">Hybrid consortium-material</option>
+                                        </select>
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Problem Focus</span>
+                                        <textarea id="builder-focus" rows="3" placeholder="Describe the mission in plain language: what should the system improve, protect, or recycle?"></textarea>
+                                    </label>
+                                    <label class="field">
+                                        <span>Safety Profile</span>
+                                        <select id="builder-safety">
+                                            <option value="simulation-only">Simulation only</option>
+                                            <option value="closed-loop-pilot">Closed-loop pilot</option>
+                                            <option value="contained-field-pilot">Contained field pilot</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="builder-section">
+                                <div class="section-header">
+                                    <h3><i class="ri-plant-line"></i> Environment</h3>
+                                </div>
+                                <div class="builder-grid">
+                                    <label class="field">
+                                        <span>Environment Name</span>
+                                        <input id="builder-env-name" type="text" placeholder="saline industrial reactor">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>Temp Min (C)</span>
+                                        <input id="builder-temp-min" type="number" step="0.1" value="12">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>Temp Max (C)</span>
+                                        <input id="builder-temp-max" type="number" step="0.1" value="32">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>pH Min</span>
+                                        <input id="builder-ph-min" type="number" step="0.1" value="6.5">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>pH Max</span>
+                                        <input id="builder-ph-max" type="number" step="0.1" value="8.0">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>Radiation</span>
+                                        <input id="builder-radiation" type="number" step="0.1" value="1.0">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>Salinity (ppt)</span>
+                                        <input id="builder-salinity" type="number" step="0.1" value="10">
+                                    </label>
+                                    <label class="field numeric-field">
+                                        <span>Gravity (g)</span>
+                                        <input id="builder-gravity" type="number" step="0.01" value="1.0">
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Atmosphere</span>
+                                        <input id="builder-atmosphere" type="text" placeholder="air, CO2-rich process gas">
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Nutrients</span>
+                                        <input id="builder-nutrients" type="text" placeholder="trace minerals, waste carbon feed">
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Stressors</span>
+                                        <input id="builder-stressors" type="text" placeholder="salinity, thermal cycling, nutrient variability">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="builder-section">
+                                <div class="section-header">
+                                    <h3><i class="ri-focus-3-line"></i> Objectives</h3>
+                                </div>
+                                <div class="builder-grid">
+                                    <label class="field">
+                                        <span>Primary Objective</span>
+                                        <input id="builder-primary-title" type="text" placeholder="Reduce contaminant burden">
+                                    </label>
+                                    <label class="field">
+                                        <span>Primary Metric</span>
+                                        <input id="builder-primary-metric" type="text" placeholder="relative concentration">
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Primary Target</span>
+                                        <input id="builder-primary-target" type="text" placeholder=">=60% reduction in simulation">
+                                    </label>
+                                    <label class="field">
+                                        <span>Secondary Objective</span>
+                                        <input id="builder-secondary-title" type="text" placeholder="Maintain process stability">
+                                    </label>
+                                    <label class="field">
+                                        <span>Secondary Metric</span>
+                                        <input id="builder-secondary-metric" type="text" placeholder="runtime stability">
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Secondary Target</span>
+                                        <input id="builder-secondary-target" type="text" placeholder=">=90% stable runtime in digital twin">
+                                    </label>
+                                    <label class="field field-wide">
+                                        <span>Extra Safety Constraints</span>
+                                        <textarea id="builder-constraints" rows="3" placeholder="Add optional constraints, one per line or comma-separated."></textarea>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <section class="insights-panel" id="research-insights">
+                                <div class="section-header">
+                                    <h3><i class="ri-flask-line"></i> Research-backed Builder Prompts</h3>
+                                </div>
+                                <p class="empty-copy">Generate a mission spec to see the paper-guided objectives and safety rules applied to your builder inputs.</p>
+                            </section>
+                        </div>
+
+                        <div class="json-panel hidden" id="json-panel">
+                            <div class="editor-toolbar">
+                                <span class="section-caption">Editable mission JSON generated from presets or the builder.</span>
+                                <button class="glass-btn" id="btn-sync-builder">
+                                    <i class="ri-arrow-left-right-line"></i> Sync Builder from JSON
+                                </button>
+                            </div>
+                            <div class="editor-container">
+                                <textarea id="json-input" spellcheck="false"></textarea>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </section>
 
-            <!-- Right panel: Results output -->
             <section class="panel glass-panel results-panel">
                 <div class="panel-header">
-                    <h2><i class="ri-dashboard-3-line"></i> Compilation Intel</h2>
+                    <div>
+                        <h2><i class="ri-dashboard-3-line"></i> Compilation Intel</h2>
+                        <p class="panel-subtitle">Saved runs, candidate architectures, and digital-twin summaries.</p>
+                    </div>
                     <div class="status-badge" id="compile-status">AWAITING</div>
                 </div>
                 <div class="results-content scroll-y" id="results-display">
-                    <!-- Dynamic blocks injected here via JS -->
                     <div class="empty-state">
                         <i class="ri-rocket-2-line empty-icon"></i>
-                        <p>Initialize a compilation to generate proxy designs, DNA variants, and digital twins.</p>
+                        <p>Build a mission, generate JSON, and compile it to explore proxy architectures and digital twins.</p>
                     </div>
                 </div>
             </section>
         </main>
-        
-        <!-- Bottom panel: Digital Twin Chart Overlay (hidden by default) -->
+
         <section class="digital-twin-overlay glass-panel hidden" id="digital-twin-overlay">
             <div class="panel-header">
                 <h2><i class="ri-line-chart-line"></i> Digital Twin ODE Proxy</h2>
